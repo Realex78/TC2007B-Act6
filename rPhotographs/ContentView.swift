@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var RedditListingVM = RedditListingViewModel()
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List {
+                ForEach (RedditListingVM.listing.data.children) { item in
+                    ZStack {
+                        ThingListView(thing: item)
+//                        NavigationLink {
+//                            APODDetailView(photo: item)
+//                        } label: {
+//                            EmptyView()
+//                        }.opacity(0.0)
+                    }.listRowInsets(EdgeInsets())
+                }
+            }.navigationTitle(Text("rPhotographs"))
         }
-        .padding()
     }
 }
 
