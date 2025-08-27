@@ -23,15 +23,25 @@ struct PreviewImages : Decodable {
     }
 }
 
+struct PreviewStruct : Decodable {
+    var images : [PreviewImages]
+    
+    enum CodingKeys: CodingKey {
+        case images
+    }
+}
+
 struct ThingData : Identifiable, Decodable {
     var id : String
     var title : String
-    var preview : [PreviewImages]
+    var preview : PreviewStruct
+    var author : String
     
     enum CodingKeys: CodingKey {
         case id
         case title
         case preview
+        case author
     }
 }
 

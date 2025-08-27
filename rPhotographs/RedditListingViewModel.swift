@@ -32,11 +32,11 @@ class RedditListingViewModel {
             print("error")
             return
         }
-        
-        let results = try JSONDecoder().decode(RedditListing.self, from: data)
-        
-        DispatchQueue.main.async {
+
+        do {
+            let results = try JSONDecoder().decode(RedditListing.self, from: data)
             self.listing = results
         }
+        
     }
 }
