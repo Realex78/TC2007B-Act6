@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var RedditListingVM = RedditListingViewModel()
     var body: some View {
         NavigationStack {
+            // Error message
             if RedditListingVM.requestError {
                 VStack {
                     Spacer()

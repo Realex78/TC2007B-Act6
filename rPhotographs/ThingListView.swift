@@ -11,6 +11,7 @@ struct ThingListView: View {
                 .fontWeight(.light)
                 .foregroundStyle(.secondary)
             
+            // Use 1080p image if possible, else use source image
             if let bestResolution = thing.data.preview.images[0].resolutions.last {
                 AsyncImage(url: URL(string: bestResolution.url)) { image in
                     image.resizable()
