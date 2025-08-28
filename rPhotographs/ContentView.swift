@@ -11,16 +11,24 @@ struct ContentView: View {
     @State private var RedditListingVM = RedditListingViewModel()
     var body: some View {
         NavigationStack {
+            if RedditListingVM.requestError {
+                VStack {
+                    Spacer()
+                    Image(systemName: "network.slash").font(.largeTitle)
+                    Text("Error loading posts :(").font(.headline)
+                    Spacer()
+                }
+            } else
             if let listing = RedditListingVM.listing {
                 List {
                     ForEach (listing.data.children) { item in
                         ZStack {
                             ThingListView(thing: item)
-    //                        NavigationLink {
-    //                            APODDetailView(photo: item)
-    //                        } label: {
-    //                            EmptyView()
-    //                        }.opacity(0.0)
+                            NavigationLink {
+                                ThingDetailView(thing: item)
+                            } label: {
+                                EmptyView()
+                            }.opacity(0.0)
                         }
                     }
                 }.navigationTitle(Text("r/Photographs"))

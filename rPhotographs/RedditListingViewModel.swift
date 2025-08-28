@@ -1,10 +1,3 @@
-//
-//  APODViewModel.swift
-//  APOD
-//
-//  Created by Alumno on 21/08/25.
-//
-
 import Foundation
 
 @Observable
@@ -12,8 +5,10 @@ import Foundation
 class RedditListingViewModel {
     
     var listing : RedditListing?
+    var requestError : Bool
     
     init() {
+        requestError = false
         Task {
             try await loadAPI()
         }
@@ -30,13 +25,11 @@ class RedditListingViewModel {
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             print("error")
+            requestError = true
             return
         }
 
-        do {
-            let results = try JSONDecoder().decode(RedditListing.self, from: data)
-            self.listing = results
-        }
-        
+        let results = try JSONDecoder().decode(RedditListing.self, from: data)
+        self.listing = results
     }
 }
